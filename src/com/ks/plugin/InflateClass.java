@@ -52,7 +52,7 @@ public class InflateClass {
 
 		if (isCreateLayout)
 			// 同时创建xml布局
-			createXmlFromCode(layoutName);
+			writerLayoutFile(directory,layoutName);
 
 	}
 
@@ -80,8 +80,8 @@ public class InflateClass {
 	// 根据代码创建xml
 	private void createXmlFromCode(String className) throws Exception {
 		// 没有就创建一个，第一次使用代码字符串创建个类
-		PsiFile javaFile = PsiFileFactory.getInstance(project).createFileFromText(className.toLowerCase() + ".xml", JavaFileType.INSTANCE, CodeTool.KsViewXmlCode());
-		Objects.requireNonNull(PsiManager.getInstance(project).findDirectory(Objects.requireNonNull(DirTool.getAppLayoutDir(event)))).add(javaFile);
+//		PsiFile javaFile = PsiFileFactory.getInstance(project).createFileFromText(className.toLowerCase() + ".xml", JavaFileType.INSTANCE, CodeTool.KsViewXmlCode());
+//		Objects.requireNonNull(PsiManager.getInstance(project).findDirectory(Objects.requireNonNull(DirTool.getAppLayoutDir(event)))).add(javaFile);
 	}
 
 	// 开始写
@@ -131,6 +131,23 @@ public class InflateClass {
 			writer2 = new BufferedWriter(new FileWriter(DirTool.getJavaDir(directory) + "/" + repositoryPackage.replaceAll("\\.", "/") + "/" + serviceClassName + (isKotlin ? ".kt" : ".java")));
 			writer2.write(CodeTool.KsServiceKotlinCode(repositoryPackage, serviceClassName));
 			writer2.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void writerLayoutFile(PsiDirectory directory,String layoutName) {
+		String layoutFilePath = DirTool.getResDir(directory);
+		File file = new File(layoutFilePath);
+		if (!file.exists()) {// 如果文件夹不存在
+			file.mkdir();// 创建文件夹
+		}
+
+		BufferedWriter writer;
+		try {
+			writer = new BufferedWriter(new FileWriter(DirTool.getResDir(directory) + layoutName + ".xml"));
+			writer.write(CodeTool.KsViewXmlCode());
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

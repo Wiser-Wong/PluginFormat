@@ -56,36 +56,46 @@ public class DirTool {
         return LocalFileSystem.getInstance().findFileByPath(getAppBaseDirStr(project));
     }
 
+//    /**
+//     * 获取APP layout路径
+//     * @param event
+//     * @return /app/src/main/res/layout
+//     */
+//    public static VirtualFile getAppLayoutDir(AnActionEvent event){
+//        Module module = event.getRequiredData(LangDataKeys.MODULE);
+//        VirtualFile baseDir = module.getModuleFile().getParent();
+//        try{
+//            VirtualFile srcFile = baseDir.findChild("src");
+//            if (srcFile == null)
+//                srcFile = baseDir.createChildDirectory(null,"src");
+//
+//            VirtualFile mainFile = srcFile.findChild("main");
+//            if (mainFile == null)
+//                mainFile = srcFile.createChildDirectory(null,"main");
+//
+//            VirtualFile resFile = mainFile.findChild("res");
+//            if (resFile == null)
+//                resFile = mainFile.createChildDirectory(null,"res");
+//
+//            VirtualFile layoutFile = resFile.findChild("layout");
+//            if (layoutFile == null)
+//                layoutFile = resFile.createChildDirectory(null,"layout");
+//
+//            return layoutFile;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
     /**
-     * 获取APP layout路径
-     * @param event
+     * 获取APP res路径
+     * @param directory
      * @return /app/src/main/res/layout
      */
-    public static VirtualFile getAppLayoutDir(AnActionEvent event){
-        Module module = event.getRequiredData(LangDataKeys.MODULE);
-        VirtualFile baseDir = module.getModuleFile().getParent();
-        try{
-            VirtualFile srcFile = baseDir.findChild("src");
-            if (srcFile == null)
-                srcFile = baseDir.createChildDirectory(null,"src");
-
-            VirtualFile mainFile = srcFile.findChild("main");
-            if (mainFile == null)
-                mainFile = srcFile.createChildDirectory(null,"main");
-
-            VirtualFile resFile = mainFile.findChild("res");
-            if (resFile == null)
-                resFile = mainFile.createChildDirectory(null,"res");
-
-            VirtualFile layoutFile = resFile.findChild("layout");
-            if (layoutFile == null)
-                layoutFile = resFile.createChildDirectory(null,"layout");
-
-            return layoutFile;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+    public static String getResDir(PsiDirectory directory){
+        String path = directory.getVirtualFile().getCanonicalPath();
+        return path.substring(0,path.lastIndexOf("/src/main/java/")) + "/src/main/java/res/layout/";
     }
 
     /**
@@ -96,21 +106,5 @@ public class DirTool {
     public static String getJavaDir(PsiDirectory directory){
         String path = directory.getVirtualFile().getCanonicalPath();
         return path.substring(0,path.lastIndexOf("/src/main/java/")) + "/src/main/java/";
-//        try{
-//            VirtualFile srcFile = baseDir.findChild("src");
-//            if (srcFile == null)
-//                srcFile = baseDir.createChildDirectory(null,"src");
-//
-//            VirtualFile mainFile = srcFile.findChild("main");
-//            if (mainFile == null)
-//                mainFile = srcFile.createChildDirectory(null,"main");
-//
-//            VirtualFile javaFile = mainFile.findChild("java");
-//            if (javaFile == null)
-//                javaFile = mainFile.createChildDirectory(null,"java");
-//            return javaFile;
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
     }
 }
