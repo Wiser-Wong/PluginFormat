@@ -3,6 +3,7 @@ package com.ks.plugin;
 import com.intellij.ide.IdeView;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.LangDataKeys;
+import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -57,20 +58,16 @@ public class DirTool {
 
     /**
      * 获取APP layout路径
-     * @param project
+     * @param event
      * @return /app/src/main/res/layout
      */
-    public static VirtualFile getAppLayoutDir(Project project){
-        VirtualFile baseDir = getAppBaseDirFile(project);
-
+    public static VirtualFile getAppLayoutDir(AnActionEvent event){
+        Module module = event.getRequiredData(LangDataKeys.MODULE);
+        VirtualFile baseDir = module.getModuleFile().getParent();
         try{
-            VirtualFile appFile = baseDir.findChild("app");
-            if (appFile == null)
-                appFile = baseDir.createChildDirectory(null,"app");
-
-            VirtualFile srcFile = appFile.findChild("src");
+            VirtualFile srcFile = baseDir.findChild("src");
             if (srcFile == null)
-                srcFile = appFile.createChildDirectory(null,"src");
+                srcFile = baseDir.createChildDirectory(null,"src");
 
             VirtualFile mainFile = srcFile.findChild("main");
             if (mainFile == null)
@@ -88,8 +85,32 @@ public class DirTool {
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return null;
     }
 
+    /**
+     * 获取APP Java路径
+     * @param directory
+     * @return /app/src/main/res/layout
+     */
+    public static String getJavaDir(PsiDirectory directory){
+        String path = directory.getVirtualFile().getCanonicalPath();
+        return path.substring(0,path.lastIndexOf("/src/main/java/")) + "/src/main/java/";
+//        try{
+//            VirtualFile srcFile = baseDir.findChild("src");
+//            if (srcFile == null)
+//                srcFile = baseDir.createChildDirectory(null,"src");
+//
+//            VirtualFile mainFile = srcFile.findChild("main");
+//            if (mainFile == null)
+//                mainFile = srcFile.createChildDirectory(null,"main");
+//
+//            VirtualFile javaFile = mainFile.findChild("java");
+//            if (javaFile == null)
+//                javaFile = mainFile.createChildDirectory(null,"java");
+//            return javaFile;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+    }
 }

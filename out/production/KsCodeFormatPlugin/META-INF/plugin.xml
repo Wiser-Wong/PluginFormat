@@ -1,0 +1,38 @@
+<idea-plugin>
+  <!-- 插件配置地址：https://www.jetbrains.org/intellij/sdk/docs/basics/plugin_structure/plugin_configuration_file.html -->
+  <!-- 插件 ID，用于在插件市场中唯一确定身份的标示，在不同版本中，必须保持一致。建议设置值为：包名 + 插件名称 -->
+  <id>com.ks.plugin.format</id>
+  <!-- 插件的名称，显示在 IDEA 已安装插件列表中 -->
+  <name>Ks Format Create</name>
+  <!-- 插件版本号 -->
+  <version>1.0.0</version>
+  <!-- 邮箱以及公司地址和公司名称 -->
+  <!--  <vendor email="leng_xiaoyu513@163.com" url="https://github.com/Wiser-Wong/Frame.git">Wiser</vendor>-->
+  <vendor url="https://github.com/Wiser-Wong/Frame" email="Wiser_XY_Wong@163.com">Wiser</vendor>
+  <!-- 插件功能说明，显示在插件市场当前插件的副标题位置。描述内容汉文：与Wiser架构配合使用，用来快速生成所需要的视图类以及相关的xml和业务类 -->
+  <description>Work with the Wiser schema to quickly generate the required view classes as well as the associated XML and business classes</description>
+  <!-- 插件版本更新内容说明 -->
+  <change-notes>Kotlin and Java quickly generate file classes for the WISER framework</change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!--  <depends>com.intellij.modules.platform</depends>-->
+  <depends>com.intellij.modules.lang</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <!-- Action 注册 -->
+  <actions>
+    <!-- Add your actions here -->
+    <group id="KsActionGroup" class="com.ks.plugin.action.KsActionGroup" popup="true"
+           icon="/icons/logo.svg" text="ks" description="Ks format class">
+      <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+    </group>
+  </actions>
+
+</idea-plugin>
