@@ -95,7 +95,7 @@ public class DirTool {
      */
     public static String getResDir(PsiDirectory directory){
         String path = directory.getVirtualFile().getCanonicalPath();
-        return path.substring(0,path.lastIndexOf("/src/main/java/")) + "/src/main/java/res/layout/";
+        return path.substring(0,path.lastIndexOf("/src/main/")) + "/src/main/res/layout/";
     }
 
     /**
