@@ -31,7 +31,6 @@ public class CodeTool {
                 "\n" +
                 "import com.ks.picturebooks.base.ui.AbsActivity\n" +
                 "import com.ks.frame.net.NetState\n" +
-                ""+(isCreateLayout ? "import com.ks.picturebooks.R" +"\n": "") +
                 ""+(isCreateViewModel ? "import "+viewModelPackage+"."+viewModelClassName+"" +"\n": "") +
                 "import dagger.hilt.android.AndroidEntryPoint\n" +
                 "\n" +
@@ -104,7 +103,6 @@ public class CodeTool {
                 "\n" +
                 "import com.ks.picturebooks.base.ui.AbsFragment\n" +
                 "import com.ks.frame.net.NetState\n" +
-                ""+(isCreateLayout ? "import com.ks.picturebooks.R" +"\n": "") +
                 ""+(isCreateViewModel ? "import "+viewModelPackage+"."+viewModelClassName+"" +"\n": "") +
                 "\n" +
                 "/**\n" +
